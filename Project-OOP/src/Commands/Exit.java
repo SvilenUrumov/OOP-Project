@@ -1,8 +1,13 @@
 package Commands;
 
-public class Exit {
-    public void exit(){
-        System.exit(0);
+public class Exit extends Command {
+    public Exit(Context context) {
+        super(context);
+    }
+
+    public String execute(){
+        context.done = true;
+        return "Exiting program";
 
     }
 }

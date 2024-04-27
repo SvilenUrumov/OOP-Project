@@ -3,19 +3,18 @@ package Commands;
 import java.io.FileReader;
 import java.util.Scanner;
 
-public class Close {
-    public void close(){
-        Scanner scanner = new Scanner(System.in);
-        try {
-            FileReader fileReader = new FileReader(String.valueOf(scanner));
-            int i;
-            while ((i = fileReader.read()) != -1)
-                System.out.print((char)i);
-            fileReader.close();
-        }
-        catch (Exception e) {
-            System.out.println("Error: " + e.toString());
-        }
+public class Close extends Command {
+    String fileName = null;
 
+    public Close(Context context) {
+        super(context);
+        helpString = "closes currently opened file";
+    }
+
+    public String execute(){
+        context.setDoc(null);
+        String res = "Successfully closed "+context.getFileName();
+        context.setFileName(null);
+       return res;
     }
 }

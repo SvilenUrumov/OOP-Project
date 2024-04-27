@@ -1,38 +1,49 @@
 package Application;
 
 import Commands.*;
-import Menu.Menu;
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import java.io.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+
 public class Application {
-    public static void main(String[] args) {
+    public static final int MAX_COMMAND_OPTIONS_NUMBER = 10;
+    public static void main(String[] args) throws ParserConfigurationException {
 
-        Open open = new Open();
-        Close close = new Close();
-        Save save = new Save();
-        SaveAs saveAs = new SaveAs();
-        Help help = new Help();
-        Exit exit = new Exit();
+        Context context = new Context();
 
-        Map<String,Runnable> menu = new HashMap();
-        menu.put("open",open::open);
-        menu.put("close",close::close);
-        menu.put("save",save::save);
-        menu.put("saveas",saveAs::saveas);
-        menu.put("help",help::help);
-        menu.put("exit",exit::exit);
+        Map<String, Command> menu = new HashMap();
+        menu.put("open", new Open(context));
+        menu.put("close", new Close(context));
+        menu.put("save", new Save(context));
+        menu.put("saveas", new SaveAs(context));
+        menu.put("help", new Help(context));
+        menu.put("exit", new Exit(context));
+        //TODO-Iterrator foreach
 
-        String option;
-    do {
+
+        String command;
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter an option:");
-        option = input.nextLine();
+        do {
 
-        menu.get(option);
-    }
-    while (option == "exit");
+            System.out.print(">");
+            command = input.nextLine();
+            String[] commandOptions = command.strip().split("\\s+", MAX_COMMAND_OPTIONS_NUMBER);
+            context.setCommandOptions(commandOptions);
+            if (commandOptions.length>0 && commandOptions[0] != null && commandOptions[0].length() != 0){
+                Command cmd = menu.get(commandOptions[0]);
+                if (cmd != null){
+                System.out.println(menu.get(commandOptions[0]).execute());
+                }
+                else{
+                    System.out.println("Invalid command");
+                }
+            }
+        }
+        while (!context.done);
     }
 }

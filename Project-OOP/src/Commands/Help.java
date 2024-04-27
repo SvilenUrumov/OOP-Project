@@ -1,7 +1,11 @@
 package Commands;
 
-public class Help {
-    public void help(){
+public class Help extends Command {
+    public Help(Context context) {
+        super(context);
+    }
+
+    public String execute(){
         System.out.println("The following commands are supported:");
         System.out.println("open <file>         opens <file>");
         System.out.println("close               closes currently opened file");
@@ -14,5 +18,6 @@ public class Help {
         System.out.println("translate [<n>]     ");
         System.out.println("within <option>     ");
         System.out.println("exit                exists the program");
+        return null;
     }
 }
