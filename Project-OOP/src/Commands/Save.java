@@ -13,6 +13,7 @@ import javax.xml.transform.stream.StreamResult;
 public class Save extends Command {
     public Save(Context context) {
         super(context);
+        helpString = "saves the currently open file";
     }
 
     public String execute(){

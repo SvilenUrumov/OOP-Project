@@ -3,6 +3,7 @@ package Application;
 import Commands.*;
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
+import javax.xml.transform.TransformerException;
 import java.io.*;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 
 public class Application {
     public static final int MAX_COMMAND_OPTIONS_NUMBER = 10;
-    public static void main(String[] args) throws ParserConfigurationException {
+    public static void main(String[] args) throws ParserConfigurationException, TransformerException {
 
         Context context = new Context();
 
@@ -23,7 +24,7 @@ public class Application {
         menu.put("saveas", new SaveAs(context));
         menu.put("help", new Help(context));
         menu.put("exit", new Exit(context));
-        //TODO-Iterrator foreach
+        //TODO-Iterator foreach
 
 
         String command;
