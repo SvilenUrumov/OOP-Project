@@ -1,12 +1,18 @@
 package Shapes;
 
 public class Point extends Shape implements Within{
+    public static final String SHAPE_NAME = "point";
     private float x;
     private float y;
 
     public Point(float x, float y) {
         this.x = x;
         this.y = y;
+    }
+    @Override
+    public String stringBuilder() {
+        String str=SHAPE_NAME+" "+x+" "+y;
+        return str;
     }
 
     @Override
@@ -52,19 +58,19 @@ public class Point extends Shape implements Within{
         }
     }
 
-    @Override
-    public boolean isWithin(Rectangle rectangle) {
+    /*@Override
+    public boolean isWithin(Polygon polygon) {
         //p1,p2,p3
         //p1,p3,p4
-        double areaRectangle = areaTriangle(rectangle.getP1(),rectangle.getP2(),rectangle.getP3())+areaTriangle(rectangle.getP1(),rectangle.getP3(), rectangle.getP4());
+        double areaRectangle = areaTriangle(polygon.getP1(), polygon.getP2(), polygon.getP3())+areaTriangle(polygon.getP1(), polygon.getP3(), polygon.getP4());
         //p1,0,p4
         //p1,0,p2
         //p2,0,p3
         //p3,0,p4
-        double atr1=areaTriangle(rectangle.getP1(),this, rectangle.getP2());
-        double atr2=areaTriangle(rectangle.getP1(),this, rectangle.getP4());
-        double atr3=areaTriangle(rectangle.getP2(),this, rectangle.getP3());
-        double atr4=areaTriangle(rectangle.getP3(),this, rectangle.getP4());
+        double atr1=areaTriangle(polygon.getP1(),this, polygon.getP2());
+        double atr2=areaTriangle(polygon.getP1(),this, polygon.getP4());
+        double atr3=areaTriangle(polygon.getP2(),this, polygon.getP3());
+        double atr4=areaTriangle(polygon.getP3(),this, polygon.getP4());
         double totalArea = atr1+atr2+atr3+atr4;
         if (areaRectangle==totalArea){
             return true;
@@ -72,5 +78,17 @@ public class Point extends Shape implements Within{
         else{
         return false;
         }
+    }*/
+
+    @Override
+    public boolean isWithin(Rectangle rectangle) {
+        if (x>rectangle.getTopLeft().getX() && y>rectangle.getTopLeft().getY()
+                && x<(rectangle.getTopLeft().getX()+rectangle.getWidth())
+                && y<(rectangle.getTopLeft().getY()+rectangle.getHeight())){
+            return true;
+        }
+        else{
+        return false;
+    }
     }
 }

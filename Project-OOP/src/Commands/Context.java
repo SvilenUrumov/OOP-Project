@@ -6,6 +6,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Context {
     private String fileName;
@@ -15,6 +16,7 @@ public class Context {
     private Document doc;
     public Boolean done;
     public ArrayList<Shape> shapes;
+    public Map<String, Command> menu;
 
     private DocumentBuilder prepareBuilder() throws ParserConfigurationException {
         //TODO-Add try catch

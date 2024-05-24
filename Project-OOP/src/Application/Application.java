@@ -18,12 +18,15 @@ public class Application {
         Context context = new Context();
 
         Map<String, Command> menu = new HashMap();
+        context.menu = menu;
         menu.put("open", new Open(context));
         menu.put("close", new Close(context));
         menu.put("save", new Save(context));
         menu.put("saveas", new SaveAs(context));
         menu.put("help", new Help(context));
         menu.put("exit", new Exit(context));
+        menu.put("print", new Print(context));
+        menu.put("translate", new Translate(context));
         //TODO-Iterator foreach
 
 

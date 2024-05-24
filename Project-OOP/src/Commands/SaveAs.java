@@ -17,6 +17,7 @@ public class SaveAs extends Command {
     public SaveAs(Context context) {
         super(context);
         helpString = "saves the currently open file in <file>";
+        cmdString = " <file>";
     }
 
     public String execute(){

@@ -3,7 +3,8 @@ package Commands;
 public class Exit extends Command {
     public Exit(Context context) {
         super(context);
-        helpString = "exists the program";
+        helpString = "exits the program";
+        cmdString = "";
     }
 
     public String execute(){

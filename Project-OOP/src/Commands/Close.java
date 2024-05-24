@@ -9,6 +9,7 @@ public class Close extends Command {
     public Close(Context context) {
         super(context);
         helpString = "closes currently opened file";
+        cmdString = "";
     }
 
     public String execute(){

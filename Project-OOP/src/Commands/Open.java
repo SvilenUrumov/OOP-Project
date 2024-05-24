@@ -1,17 +1,14 @@
 package Commands;
 
-import Shapes.Line;
 import Shapes.Point;
-import org.w3c.dom.Document;
+import Shapes.Polygon;
+import Shapes.Rectangle;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.awt.*;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.PrintStream;
-import java.util.Scanner;
 
 public class Open extends Command {
     String fileName = null;
@@ -20,6 +17,7 @@ public class Open extends Command {
     public Open(Context context) {
         super(context);
         helpString = "closes currently opened file";
+        cmdString = " <file>";
     }
     private void parseTree(Node doc) {
         if (doc == null) {
@@ -47,7 +45,7 @@ public class Open extends Command {
                     System.out.println(widthVal);
                     System.out.println(heightVal);
                     System.out.println(fillRectVal);
-                    Shapes.Rectangle rectangle = new Shapes.Rectangle(new Shapes.Point(xVal,yVal),widthVal,heightVal,doc);
+                    Rectangle rectangle = new Rectangle(new Shapes.Point(xVal,yVal),widthVal,heightVal, fillRectVal,doc);
                     context.shapes.add(rectangle);
                 case "circle":
                     Node cx = cl.getNamedItem("cx");
@@ -58,7 +56,7 @@ public class Open extends Command {
                     float cyVal = Float.parseFloat(cy.getNodeValue());
                     float rVal = Float.parseFloat(r.getNodeValue());
                     String fillCircleVal = fillCircle.getNodeValue();
-                    Shapes.Circle circle = new Shapes.Circle(new Shapes.Point(cxVal,cyVal),rVal,doc);
+                    Shapes.Circle circle = new Shapes.Circle(new Shapes.Point(cxVal,cyVal),rVal,fillCircleVal,doc);
                     context.shapes.add(circle);
                 case "line":
                     Node x1 = cl.getNamedItem("x1");
@@ -71,7 +69,7 @@ public class Open extends Command {
                     float x2Val = Float.parseFloat(x2.getNodeValue());
                     float y2Val = Float.parseFloat(y2.getNodeValue());
                     String fillLineVal = fillLine.getNodeValue();
-                    Shapes.Line line = new Shapes.Line(new Shapes.Point(x1Val,y1Val),new Point(x2Val,y2Val));
+                    Shapes.Line line = new Shapes.Line(new Shapes.Point(x1Val,y1Val),new Point(x2Val,y2Val), fillLineVal,doc);
                     context.shapes.add(line);
                     System.out.println("====");
                     break;
