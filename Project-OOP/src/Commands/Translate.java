@@ -1,11 +1,13 @@
 package Commands;
 
+import Application.Command;
+import Application.Context;
+
 import javax.xml.transform.TransformerException;
 
-public class Translate extends Command{
+public class Translate extends Command {
     public Translate(Context context) {
         super(context);
-        //TODO-Help String
         helpString = "translates the selected figure ";
         cmdString = "";
     }
@@ -14,7 +16,6 @@ public class Translate extends Command{
     public String execute() throws TransformerException {
         int verticalShift = 0;
         int horizontalShift = 0;
-        //TODO-add try catch
         if (context.getCommandOptions()[1].chars().allMatch( Character::isDigit )&& context.getCommandOptions().length==4){
             System.out.println(context.getCommandOptions()[1]);
             Shapes.Shape s = context.shapes.get(Integer.parseInt(context.getCommandOptions()[1])-1);

@@ -1,11 +1,10 @@
 package Commands;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import Application.Command;
+import Application.Context;
+
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -22,6 +21,9 @@ public class Save extends Command {
           return "There isn't an opened file";
         }
         try{
+            for (int i=0;i< context.shapes.size();i++){
+                context.shapes.get(i).syncNode(context.getDoc());
+            }
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(context.getDoc());

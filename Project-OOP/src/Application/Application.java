@@ -1,10 +1,9 @@
 package Application;
 
 import Commands.*;
-import org.w3c.dom.*;
+
 import javax.xml.parsers.*;
 import javax.xml.transform.TransformerException;
-import java.io.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +26,9 @@ public class Application {
         menu.put("exit", new Exit(context));
         menu.put("print", new Print(context));
         menu.put("translate", new Translate(context));
-        //TODO-Iterator foreach
+        menu.put("within", new Within(context));
+        menu.put("create", new Create(context));
+        menu.put("erase", new Erase(context));
 
 
         String command;

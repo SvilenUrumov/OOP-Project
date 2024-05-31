@@ -1,6 +1,6 @@
 package Shapes;
 
-import org.w3c.dom.Node;
+import org.w3c.dom.*;
 
 public class Rectangle extends Shape implements Within{
     public static final String SHAPE_NAME = "rectangle";
@@ -25,6 +25,31 @@ public class Rectangle extends Shape implements Within{
     @Override
     public void translate(float verticalShift, float horizontalShift) {
         topLeft.translate(verticalShift,horizontalShift);
+    }
+
+    @Override
+    public void syncNode(Document doc) {
+        if (SVGNode == null){
+            SVGNode = doc.createElement("rect");
+            doc.getDocumentElement().appendChild(SVGNode);
+            Attr a = doc.createAttribute("x");
+            ((Element)SVGNode).setAttributeNode(a);
+            a = doc.createAttribute("y");
+            ((Element)SVGNode).setAttributeNode(a);
+            a = doc.createAttribute("width");
+            ((Element)SVGNode).setAttributeNode(a);
+            a = doc.createAttribute("height");
+            ((Element)SVGNode).setAttributeNode(a);
+            a = doc.createAttribute("fill");
+            ((Element)SVGNode).setAttributeNode(a);
+        }
+
+        NamedNodeMap nodeMap = SVGNode.getAttributes();
+        nodeMap.getNamedItem("x").setNodeValue(String.valueOf(topLeft.getX()));
+        nodeMap.getNamedItem("y").setNodeValue(String.valueOf(topLeft.getY()));
+        nodeMap.getNamedItem("width").setNodeValue(String.valueOf(width));
+        nodeMap.getNamedItem("height").setNodeValue(String.valueOf(height));
+        nodeMap.getNamedItem("fill").setNodeValue(color);
     }
 
     @Override

@@ -1,8 +1,11 @@
 package Commands;
 
+import Application.Command;
+import Application.Context;
+
 import javax.xml.transform.TransformerException;
 
-public class Print extends Command{
+public class Print extends Command {
     public Print(Context context) {
         super(context);
         helpString = "prints out every shape";

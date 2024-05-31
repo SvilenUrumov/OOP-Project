@@ -1,5 +1,8 @@
 package Commands;
 
+import Application.Command;
+import Application.Context;
+
 public class Exit extends Command {
     public Exit(Context context) {
         super(context);

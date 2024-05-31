@@ -1,7 +1,7 @@
 package Commands;
 
-import java.util.Formatter;
-import java.util.Locale;
+import Application.Command;
+import Application.Context;
 
 public class Help extends Command {
     public Help(Context context) {

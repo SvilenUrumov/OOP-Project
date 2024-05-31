@@ -1,7 +1,7 @@
 package Commands;
 
-import java.io.FileReader;
-import java.util.Scanner;
+import Application.Command;
+import Application.Context;
 
 public class Close extends Command {
     String fileName = null;

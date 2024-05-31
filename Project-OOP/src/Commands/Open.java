@@ -1,14 +1,14 @@
 package Commands;
 
+import Application.Command;
+import Application.Context;
 import Shapes.Point;
-import Shapes.Polygon;
 import Shapes.Rectangle;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.FileInputStream;
-import java.io.PrintStream;
 
 public class Open extends Command {
     String fileName = null;
@@ -21,11 +21,10 @@ public class Open extends Command {
     }
     private void parseTree(Node doc) {
         if (doc == null) {
-            System.out.println("Nothing to print!!");
             return;
         }
         try {
-            System.out.println(" nodename : "+doc.getNodeName() + "  " + "nodevalue: "+doc.getNodeValue());
+
 
             NamedNodeMap cl = doc.getAttributes();
             switch(doc.getNodeName()){
@@ -40,11 +39,6 @@ public class Open extends Command {
                     float widthVal = Float.parseFloat(width.getNodeValue());
                     float heightVal = Float.parseFloat(height.getNodeValue());
                     String fillRectVal = fill.getNodeValue();
-                    System.out.println(xVal);
-                    System.out.println(yVal);
-                    System.out.println(widthVal);
-                    System.out.println(heightVal);
-                    System.out.println(fillRectVal);
                     Rectangle rectangle = new Rectangle(new Shapes.Point(xVal,yVal),widthVal,heightVal, fillRectVal,doc);
                     context.shapes.add(rectangle);
                 case "circle":
@@ -71,7 +65,6 @@ public class Open extends Command {
                     String fillLineVal = fillLine.getNodeValue();
                     Shapes.Line line = new Shapes.Line(new Shapes.Point(x1Val,y1Val),new Point(x2Val,y2Val), fillLineVal,doc);
                     context.shapes.add(line);
-                    System.out.println("====");
                     break;
                 default:
             }
@@ -79,11 +72,7 @@ public class Open extends Command {
                 for (int i = 0; i < cl.getLength(); i++) {
                     Node node = cl.item(i);
 
-        /*
-        System.out.println("\t" + node.getNodeName() + " ->" + node.getNodeValue());
-        //You don't need value
-        */
-                    System.out.println("\t nodeattribute: " + node.getNodeName());
+
                 }
             }
             NodeList nl = doc.getChildNodes();
@@ -92,45 +81,10 @@ public class Open extends Command {
                 parseTree(node);
             }
         } catch (Throwable e) {
-            System.out.println("Cannot print!! " + e.getMessage());
         }
-    }
-    private void printlnCommon(Node n) {
-        PrintStream out = System.out;
-        out.print(" nodeName=\"" + n.getNodeName() + "\"");
-
-        String val = n.getNamespaceURI();
-        if (val != null) {
-            out.print(" uri=\"" + val + "\"");
-        }
-
-        val = n.getPrefix();
-
-        if (val != null) {
-            out.print(" pre=\"" + val + "\"");
-        }
-
-        val = n.getLocalName();
-        if (val != null) {
-            out.print(" local=\"" + val + "\"");
-        }
-
-        val = n.getNodeValue();
-        if (val != null) {
-            out.print(" nodeValue=");
-            if (val.trim().equals("")) {
-                // Whitespace
-                out.print("[WS]");
-            }
-            else {
-                out.print("\"" + n.getNodeValue() + "\"");
-            }
-        }
-        out.println();
     }
 
     public String execute() {
-        //TODO-проверка дали зададеният индекс се вмества с масива или е по голям от размера на масива(грешка)
         fileName = context.getCommandOptions()[1];
         System.out.println(fileName);
         try {
@@ -139,7 +93,7 @@ public class Open extends Command {
             context.setFileName(fileName);
             myFile.close();
 
-
+            context.shapes.clear();
             parseTree(context.getDoc());
             return "The file was opened successfully";
         } catch (Exception e) {

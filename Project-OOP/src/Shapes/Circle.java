@@ -1,6 +1,6 @@
 package Shapes;
 
-import org.w3c.dom.Node;
+import org.w3c.dom.*;
 
 public class Circle extends Shape implements Within{
     public static final String SHAPE_NAME = "circle";
@@ -17,6 +17,28 @@ public class Circle extends Shape implements Within{
     @Override
     public void translate(float verticalShift, float horizontalShift) {
         center.translate(verticalShift,horizontalShift);
+    }
+
+    @Override
+    public void syncNode(Document doc) {
+        if (SVGNode == null){
+            SVGNode = doc.createElement("circle");
+            doc.getDocumentElement().appendChild(SVGNode);
+            Attr a = doc.createAttribute("cx");
+            ((Element)SVGNode).setAttributeNode(a);
+            a = doc.createAttribute("cy");
+            ((Element)SVGNode).setAttributeNode(a);
+            a = doc.createAttribute("r");
+            ((Element)SVGNode).setAttributeNode(a);
+            a = doc.createAttribute("fill");
+            ((Element)SVGNode).setAttributeNode(a);
+        }
+
+        NamedNodeMap nodeMap = SVGNode.getAttributes();
+        nodeMap.getNamedItem("cx").setNodeValue(String.valueOf(center.getX()));
+        nodeMap.getNamedItem("cy").setNodeValue(String.valueOf(center.getY()));
+        nodeMap.getNamedItem("r").setNodeValue(String.valueOf(radius));
+        nodeMap.getNamedItem("fill").setNodeValue(color);
     }
 
     @Override
@@ -73,13 +95,13 @@ public class Circle extends Shape implements Within{
     public boolean isWithin(Rectangle rectangle) {
         if (center.isWithin(rectangle)&&
                 //Top
-                radius< (center.getY()-rectangle.getTopLeft().getY()) &&
+                (radius< (center.getY()-rectangle.getTopLeft().getY())) &&
                 //Right
-                radius< (center.getX()-(rectangle.getTopLeft().getX()+rectangle.getWidth())) &&
+                (radius< (center.getX()+(rectangle.getTopLeft().getX()+rectangle.getWidth()))) &&
                 //Left
-                radius< (center.getX()-rectangle.getTopLeft().getX()) &&
+                (radius< (center.getX()-rectangle.getTopLeft().getX())) &&
                 //Bottom
-                radius< (center.getY()-(rectangle.getTopLeft().getY()+ rectangle.getHeight())))
+                (radius< (center.getY()+(rectangle.getTopLeft().getY()+ rectangle.getHeight()))))
         {
             return true;
         }

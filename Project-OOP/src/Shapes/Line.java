@@ -1,6 +1,6 @@
 package Shapes;
 
-import org.w3c.dom.Node;
+import org.w3c.dom.*;
 
 public class Line extends Shape implements Within{
     public static final String SHAPE_NAME = "line";
@@ -23,6 +23,31 @@ public class Line extends Shape implements Within{
     public void translate(float verticalShift, float horizontalShift) {
         start.translate(verticalShift,horizontalShift);
         end.translate(verticalShift,horizontalShift);
+    }
+
+    @Override
+    public void syncNode(Document doc) {
+        if (SVGNode == null){
+            SVGNode = doc.createElement("line");
+            doc.getDocumentElement().appendChild(SVGNode);
+            Attr a = doc.createAttribute("x1");
+            ((Element)SVGNode).setAttributeNode(a);
+            a = doc.createAttribute("y1");
+            ((Element)SVGNode).setAttributeNode(a);
+            a = doc.createAttribute("x2");
+            ((Element)SVGNode).setAttributeNode(a);
+            a = doc.createAttribute("y2");
+            ((Element)SVGNode).setAttributeNode(a);
+            a = doc.createAttribute("stroke");
+            ((Element)SVGNode).setAttributeNode(a);
+        }
+
+        NamedNodeMap nodeMap = SVGNode.getAttributes();
+        nodeMap.getNamedItem("x1").setNodeValue(String.valueOf(start.getX()));
+        nodeMap.getNamedItem("y1").setNodeValue(String.valueOf(start.getY()));
+        nodeMap.getNamedItem("x2").setNodeValue(String.valueOf(end.getX()));
+        nodeMap.getNamedItem("y2").setNodeValue(String.valueOf(end.getY()));
+        nodeMap.getNamedItem("stroke").setNodeValue(color);
     }
 
     @Override

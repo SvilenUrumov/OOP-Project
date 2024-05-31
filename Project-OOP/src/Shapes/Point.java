@@ -1,5 +1,7 @@
 package Shapes;
 
+import org.w3c.dom.Document;
+
 public class Point extends Shape implements Within{
     public static final String SHAPE_NAME = "point";
     private float x;
@@ -19,6 +21,11 @@ public class Point extends Shape implements Within{
     public void translate(float verticalShift, float horizontalShift) {
         this.x += horizontalShift;
         this.y += verticalShift;
+    }
+
+    @Override
+    public void syncNode(Document doc) {
+
     }
 
     public float getX() {
@@ -57,28 +64,6 @@ public class Point extends Shape implements Within{
             return false;
         }
     }
-
-    /*@Override
-    public boolean isWithin(Polygon polygon) {
-        //p1,p2,p3
-        //p1,p3,p4
-        double areaRectangle = areaTriangle(polygon.getP1(), polygon.getP2(), polygon.getP3())+areaTriangle(polygon.getP1(), polygon.getP3(), polygon.getP4());
-        //p1,0,p4
-        //p1,0,p2
-        //p2,0,p3
-        //p3,0,p4
-        double atr1=areaTriangle(polygon.getP1(),this, polygon.getP2());
-        double atr2=areaTriangle(polygon.getP1(),this, polygon.getP4());
-        double atr3=areaTriangle(polygon.getP2(),this, polygon.getP3());
-        double atr4=areaTriangle(polygon.getP3(),this, polygon.getP4());
-        double totalArea = atr1+atr2+atr3+atr4;
-        if (areaRectangle==totalArea){
-            return true;
-        }
-        else{
-        return false;
-        }
-    }*/
 
     @Override
     public boolean isWithin(Rectangle rectangle) {

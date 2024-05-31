@@ -1,16 +1,12 @@
 package Commands;
 
-import org.w3c.dom.DocumentType;
+import Application.Command;
+import Application.Context;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
 import javax.xml.transform.OutputKeys;
 
 public class SaveAs extends Command {
@@ -25,6 +21,9 @@ public class SaveAs extends Command {
             return "There isn't an opened file";
         }
         try{
+            for (int i=0;i< context.shapes.size();i++){
+                context.shapes.get(i).syncNode(context.getDoc());
+            }
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(context.getDoc());

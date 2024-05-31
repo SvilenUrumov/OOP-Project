@@ -1,12 +1,14 @@
 package Commands;
 
+import Application.Command;
+import Application.Context;
 import Shapes.Circle;
 import Shapes.Point;
 import Shapes.Rectangle;
 
 import javax.xml.transform.TransformerException;
 
-public class Within extends Command{
+public class Within extends Command {
 
     public Within(Context context) {
         super(context);
@@ -50,12 +52,12 @@ public class Within extends Command{
                         }
 
                     }
-                    System.out.println("The number of shapes within the circle is "+count);
+                    System.out.println("The number of shapes within the rectangle is "+count);
                     break;
                 default:
                     break;
             }
         }
-        return null;
+        return "OK";
     }
 }
